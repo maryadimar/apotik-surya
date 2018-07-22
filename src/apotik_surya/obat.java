@@ -87,6 +87,8 @@ public class obat extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         btn_transaksi = new javax.swing.JButton();
         goto_menu = new javax.swing.JButton();
+        btn_edit = new javax.swing.JButton();
+        btn_hapus = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -105,7 +107,7 @@ public class obat extends javax.swing.JFrame {
         cmbjnsobat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "OBAT RINGAN", "OBAT SEDANG", "OBAT KERAS" }));
 
         save_obat.setBackground(new java.awt.Color(102, 255, 153));
-        save_obat.setText("SIMPAN OBAT");
+        save_obat.setText("SIMPAN");
         save_obat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 save_obatActionPerformed(evt);
@@ -123,6 +125,11 @@ public class obat extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabel_obat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_obatMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabel_obat);
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 153));
@@ -161,6 +168,20 @@ public class obat extends javax.swing.JFrame {
             }
         });
 
+        btn_edit.setText("EDIT");
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
+
+        btn_hapus.setText("HAPUS");
+        btn_hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hapusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,11 +209,15 @@ public class obat extends javax.swing.JFrame {
                                 .addComponent(txtstokobat, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(save_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(save_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_edit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_hapus)
+                        .addGap(34, 34, 34)
                         .addComponent(btn_transaksi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(goto_menu, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)))
+                        .addComponent(goto_menu, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
                 .addContainerGap(35, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -224,14 +249,17 @@ public class obat extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(19, 19, 19)
-                            .addComponent(save_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addComponent(btn_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btn_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(goto_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(goto_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(save_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -269,6 +297,48 @@ public class obat extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_goto_menuActionPerformed
 
+    private void tabel_obatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_obatMouseClicked
+        txtkodeobat.setText(tabel_obat.getValueAt(tabel_obat.getSelectedRow(),0).toString());
+        txtnamaobat.setText(tabel_obat.getValueAt(tabel_obat.getSelectedRow(),1).toString());
+        cmbjnsobat.setActionCommand(tabel_obat.getValueAt(tabel_obat.getSelectedRow(),2).toString());
+        txthargaobat.setText(tabel_obat.getValueAt(tabel_obat.getSelectedRow(),3).toString());
+        txtstokobat.setText(tabel_obat.getValueAt(tabel_obat.getSelectedRow(),4).toString());
+    }//GEN-LAST:event_tabel_obatMouseClicked
+
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        try {
+            Connection c = koneksiDB.getkoneksi();
+           sql = "update obat set nmobat = '"+txtnamaobat.getText()+
+                                                "',jnsobat = '"+cmbjnsobat.getSelectedItem()+
+                                                "', hrgobat = '"+txthargaobat.getText()+
+                                                "', stok = '"+txtstokobat.getText()+
+                                                "' where kdobat = '"+txtkodeobat.getText()+"'";
+           
+            st = c.createStatement();
+            st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Berhasil Diedit","Informasi", JOptionPane.INFORMATION_MESSAGE);
+            tampil_tabel ();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Diedit"+e.getMessage());
+        }
+    }//GEN-LAST:event_btn_editActionPerformed
+
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
+       int ok=JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin ?","Peringatan", JOptionPane.YES_NO_OPTION);
+       if(ok==0){
+           try {
+               Connection c = koneksiDB.getkoneksi();
+               sql = "delete from obat where kdobat = '"+txtkodeobat.getText()+"'";
+               st = c.createStatement();
+               st.executeUpdate(sql);
+               JOptionPane.showMessageDialog(null, "Data Dihapus","Informasi", JOptionPane.INFORMATION_MESSAGE);
+               tampil_tabel();
+           } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, "Data Gagal Dihapus"+e.getMessage());
+           }
+       }
+    }//GEN-LAST:event_btn_hapusActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -305,6 +375,8 @@ public class obat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_edit;
+    private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_transaksi;
     private javax.swing.JComboBox cmbjnsobat;
     private javax.swing.JButton goto_menu;
