@@ -197,8 +197,19 @@ private ResultSet rs;
         });
 
         txtjumlahbeli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtjumlahbeliMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtjumlahbeliMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtjumlahbeliMouseReleased(evt);
+            }
+        });
+        txtjumlahbeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtjumlahbeliActionPerformed(evt);
             }
         });
 
@@ -356,24 +367,72 @@ private ResultSet rs;
     }//GEN-LAST:event_cmbkodeobatActionPerformed
 
     private void savetransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savetransaksiActionPerformed
-        /*String kode_obat;
-        Integer diskon, totalbayar, jumlahbeli;
-        kode_obat = (String) cmbkodeobat.getSelectedItem();
-        if(kode_obat){
-        }*/
+        try {
+            Integer stokakhir, stokobat, jumlahbeli;
+            
+            stokobat = Integer.parseInt(txtstokobat.getText());
+            jumlahbeli = Integer.parseInt(txtjumlahbeli.getText());
+                  
+            stokakhir = stokobat - jumlahbeli;
+                        
+            Connection c = koneksiDB.getkoneksi();
+            sql = "insert into transaksi values ('"+txtidtransaksi.getText()+"','"
+                                              +txttanggaltarnsaksi.getText()+"','"
+                                              +cmbkodeobat.getSelectedItem()+"','"
+                                              +txtjumlahbeli.getText()+"','"
+                                              +txttotal.getText()+"','"
+                                              +txtjumlahdiskon.getText()+"','"
+                                              +txttotalbayar.getText()+"')";
+            
+            st = c.createStatement();
+            st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan","Informasi", JOptionPane.INFORMATION_MESSAGE);
+            tampil_tabel ();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Disimpan"+e.getMessage());
+        }
     }//GEN-LAST:event_savetransaksiActionPerformed
 
     private void txtjumlahbeliMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtjumlahbeliMousePressed
-        Integer jumlahbeli, hargaobat, total;
-        String tampiltotal;
+        
+    }//GEN-LAST:event_txtjumlahbeliMousePressed
+
+    private void txtjumlahbeliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtjumlahbeliMouseEntered
+        
+    }//GEN-LAST:event_txtjumlahbeliMouseEntered
+
+    private void txtjumlahbeliMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtjumlahbeliMouseReleased
+        
+    }//GEN-LAST:event_txtjumlahbeliMouseReleased
+
+    private void txtjumlahbeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtjumlahbeliActionPerformed
+        Integer jumlahbeli, hargaobat, total, totalbayar, diskon = null;
+        String kode_obat;
+               
         
         jumlahbeli = Integer.parseInt(txtjumlahbeli.getText());
         hargaobat = Integer.parseInt(txthargaobat.getText());
-        
+        kode_obat = (String) cmbkodeobat.getSelectedItem();
+        if(kode_obat == "OBT001"){
+            diskon =((10 * hargaobat)/100) * jumlahbeli;    
+        }else if(kode_obat == "OBT002"){
+            diskon =(15 * hargaobat)/100 * jumlahbeli;    
+        }else{
+            diskon =((20 * hargaobat)/100) * jumlahbeli;  
+        }
+        //cari total
         total = jumlahbeli * hargaobat;
-        tampiltotal = String.valueOf(total);
-        txttotal.setText(tampiltotal);
-    }//GEN-LAST:event_txtjumlahbeliMousePressed
+        totalbayar = (hargaobat * jumlahbeli) - diskon;
+        
+        String tampildiskon = String.valueOf(diskon);
+                 txtjumlahdiskon.setText(tampildiskon);
+                 
+        String tampiltotalbayar = String.valueOf(totalbayar);
+             txttotalbayar.setText(tampiltotalbayar);
+             
+        String tampiltotal = String.valueOf(total);
+             txttotal.setText(tampiltotal);
+    }//GEN-LAST:event_txtjumlahbeliActionPerformed
 
     /**
      * @param args the command line arguments
